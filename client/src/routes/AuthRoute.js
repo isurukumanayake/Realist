@@ -10,7 +10,7 @@ function AuthRoute() {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setLoading(false);
-    }, 1200);
+    }, 400);
 
     return () => {
       clearTimeout(timeoutId);
