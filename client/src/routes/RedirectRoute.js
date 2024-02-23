@@ -7,7 +7,7 @@ function RedirectRoute() {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setLoading(false);
-    }, 900);
+    }, 1200);
 
     return () => {
       clearTimeout(timeoutId);
