@@ -31,6 +31,6 @@ app.use("/", (req, res) => {
 
 connectDB();
 
-app.listen(4005, () => {
-  console.log("Server started on port 4005");
+app.listen(4000, () => {
+  console.log("Server started on port 4000");
 });
