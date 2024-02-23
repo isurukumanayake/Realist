@@ -29,15 +29,4 @@ jobs:
       - name: Delete old container
         run: docker rm -f realist-server-container
       - name: Run Docker Container
-        run: |
-          docker run -d -p 4000:4000 --name realist-server-container \
-            -e DATABASE=${{ secrets.DATABASE }} \
-            -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
-            -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
-            -e EMAIL_FROM=${{ secrets.EMAIL_FROM }} \
-            -e REPLY_TO=${{ secrets.REPLY_TO }} \
-            -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
-            -e CLIENT_URL=${{ secrets.CLIENT_URL }} \
-            -e AWS_BUCKET=${{ secrets.AWS_BUCKET }} \
-            -e GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }} \
-            isuruk1/realist-server
+        run: docker run -d -p 4000:4000 --name realist-server-container -e DATABASE='${{ secrets.DATABASE }}' -e AWS_ACCESS_KEY_ID='${{ secrets.AWS_ACCESS_KEY_ID }}' -e AWS_SECRET_ACCESS_KEY='${{ secrets.AWS_SECRET_ACCESS_KEY }}' -e EMAIL_FROM='${{ secrets.EMAIL_FROM }}' -e REPLY_TO='${{ secrets.REPLY_TO }}' -e JWT_SECRET='${{ secrets.JWT_SECRET }}' -e CLIENT_URL='${{ secrets.CLIENT_URL }}' -e AWS_BUCKET='${{ secrets.AWS_BUCKET }}' -e GOOGLE_API_KEY='${{ secrets.GOOGLE_API_KEY }}' isuruk1/realist-server
