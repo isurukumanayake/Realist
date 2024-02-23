@@ -1,0 +1,32 @@
+name: Deploy React Application
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "client/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+      - name: Login to docker hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build Docker Image
+        run: cd client && docker build -t isuruk1/realist-client --build-arg REACT_APP_API='${{ secrets.REACT_APP_API }}' --build-arg REACT_APP_GOOGLE_API_KEY='${{ secrets.REACT_APP_GOOGLE_API_KEY }}'  .
+      - name: Publish Image to docker hub
+        run: docker push isuruk1/realist-client
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull image from docker hub
+        run: docker pull isuruk1/realist-client
+      - name: Delete old container
+        run: docker rm -f realist-client-container
+      - name: Run Docker Container
+        run: docker run -d -p 80:80 --name realist-client-container isuruk1/realist-client
